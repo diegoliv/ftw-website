@@ -836,10 +836,16 @@ window.addEventListener("DOMContentLoaded", (event) => {
         scaleX: 1,
         duration: 0.3,
         stagger: 0.2,
+      })
+      .to(".nav-link-gradient", {
+        opacity: 0.5,
+        duration: 0.3,
+        stagger: 0.2,
       });
 
     gsap.set(".nav-link.mobile", { text: "" });
     gsap.set(".nav-link-divider", { scaleX: 0 });
+    gsap.set(".nav-link-gradient", { opacity: 0 });
     menuTrigger.addEventListener("click", (e) => {
       if (menuTrigger.classList.contains("active")) {
         menuTl.reverse();
