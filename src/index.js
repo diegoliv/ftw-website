@@ -816,5 +816,37 @@ window.addEventListener("DOMContentLoaded", (event) => {
         tl.pause(0);
       });
     });
+
+    // Mobile menu interaction
+    const menuTrigger = document.querySelector(".menu-trigger");
+    // Store link labels
+    document.querySelectorAll(".nav-link.mobile").forEach((item) => {
+      item.dataset.label = item.textContent;
+    });
+    const menuTl = gsap.timeline({ paused: true });
+    menuTl
+      .to(".nav-link.mobile", {
+        text: (index, target) => {
+          return target.dataset.label;
+        },
+        duration: 0.5,
+        stagger: 0.2,
+      })
+      .to(".nav-link-divider", {
+        scaleX: 1,
+        duration: 0.3,
+        stagger: 0.2,
+      });
+
+    gsap.set(".nav-link.mobile", { text: "" });
+    gsap.set(".nav-link-divider", { scaleX: 0 });
+    menuTrigger.addEventListener("click", (e) => {
+      if (menuTrigger.classList.contains("active")) {
+        menuTl.reverse();
+      } else {
+        menuTl.play();
+      }
+      menuTrigger.classList.toggle("active");
+    });
   }
 });
