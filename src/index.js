@@ -3,6 +3,13 @@ gsap.registerPlugin(ScrollTrigger);
 const body = document.querySelector("body");
 body.classList.add("loading");
 
+// if (history.scrollRestoration) {
+//   history.scrollRestoration = "manual";
+// } else {
+//   window.onbeforeunload = function () {
+//     window.scrollTo(0, 0);
+//   };
+// }
 window.addEventListener("DOMContentLoaded", (event) => {
   // Wait until loading animation finishes before initializing
   // all the GSAP logic
@@ -81,7 +88,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   const music = document.querySelector("#audio"); // music
   const headlineGlitch = document.querySelector("#headline-glitch"); // glitch
   const hoverGlitch = document.querySelector("#hover-glitch"); // hover
-  headlineGlitch.volume = 0.7;
+  headlineGlitch.volume = 0.4;
   hoverGlitch.volume = 0.3;
 
   let isLoaded = false;
@@ -173,19 +180,27 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
   requestAnimationFrame(raf);
 
+  // window.onbeforeunload = function () {
+  //   // window.scrollTo(0,0);
+  //   lenis.scrollTo(1, { immediate: true });
+  // };
+
   // Initialize
   checkIfLoaded(document.querySelector(".frame-header"), initPage);
+  // checkIfLoaded(document.querySelector(".loading-observer"), () => {
+  //   // Force scroll to the top
+  //   body.classList.remove("loading");
+  //   lenis.scrollTo(1, { duration: 0.2 });
+  // });
 
   // Initialize gsap functionality
   function initPage() {
     body.classList.remove("loading");
+    //lenis.scrollTo(1, { immediate: true });
     const heroIntro = document.querySelector(".hero-intro-trigger");
     if (heroIntro) {
       heroIntro.click();
     }
-
-    // Force scroll to the top
-    lenis.scrollTo(1, { immediate: true });
 
     // Link sounds
     const hoverSounds = gsap.utils.toArray(".hover-glitch");
@@ -365,7 +380,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
     // Populate hero data
     heroes.forEach((hero) => {
       const img = hero.querySelector("img");
-      const elInner = `<div class="hero-slice-top"></div><div class="hero-slice-middle"></div><div class="hero-slice-bottom"></div>`;
+      const elInner = `
+      <div class="slice top-third"></div>
+      <div class="slice middle-third"></div>
+      <div class="slice bottom-third"></div>`;
       hero.innerHTML = elInner;
 
       const slices = hero.querySelectorAll("div");
@@ -554,12 +572,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
       const img = inner.querySelector(".weapons-slider-weapon");
       const detail = weapon.querySelector(".weapon-detail");
       const elInner = `
-        <div class="weapons-slice-top-left"></div>
-        <div class="weapons-slice-bottom-left"></div>
-        <div class="weapons-slice-top-middle"></div>
-        <div class="weapons-slice-bottom-middle"></div>
-        <div class="weapons-slice-top-right"></div>
-        <div class="weapons-slice-bottom-right"></div>`;
+      <div class="slice top-left-third"></div>
+      <div class="slice bottom-left-third"></div>
+      <div class="slice top-middle-third"></div>
+      <div class="slice bottom-middle-third"></div>
+      <div class="slice top-right-third"></div>
+      <div class="slice bottom-right-third"></div>`;
       inner.innerHTML = elInner;
 
       const slices = inner.querySelectorAll("div");
@@ -745,6 +763,67 @@ window.addEventListener("DOMContentLoaded", (event) => {
       onEnter: () => {
         goToWeapon(0);
       },
+    });
+
+    // glitch effect for footer linkst
+    const links = gsap.utils.toArray("[glitch-link]");
+
+    links.forEach((link) => {
+      const el = link.querySelector("[glitch-el]");
+      const inner = link.querySelector("[glitch-wrapper]");
+      const elInner = `
+      <div class="slice top-left"></div>
+      <div class="slice bottom-left"></div>
+      <div class="slice top-right"></div>
+      <div class="slice bottom-right"></div>`;
+      inner.innerHTML = elInner;
+
+      const slices = inner.querySelectorAll("div");
+      slices.forEach((slice) => {
+        slice.appendChild(el.cloneNode(true));
+      });
+
+      if (el.hasAttribute("glitch-sizer")) {
+        el.classList.add("invisible");
+        inner.appendChild(el);
+      }
+
+      // set button timeline
+      const tl = gsap.timeline({ paused: true });
+
+      tl.to(slices, 0.01, {
+        opacity: 1,
+        stagger: { amount: 0.2 },
+      })
+        .to(slices, 0.01, { y: "random(-50%, 50%)", stagger: { amount: 0.04 } })
+        .to(slices, 0.04, { y: 0, stagger: { amount: 0.04 } })
+        .to(slices, 0.04, {
+          opacity: 0,
+          stagger: { amount: 0.04, from: "random" },
+        })
+        .to(slices, 0.01, {
+          opacity: 1,
+          stagger: { amount: 0.04, from: "random" },
+        })
+        .to(slices, 0.04, { x: "random(-50%, 50%)", stagger: { amount: 0.01 } })
+        .to(slices, 0.01, { x: "random(-50%, 50%)", stagger: { amount: 0.04 } })
+        .to(slices, 0.04, {
+          opacity: 0,
+          stagger: { amount: 0.04, from: "random" },
+        })
+        .to(slices, 0.01, {
+          opacity: 1,
+          stagger: { amount: 0.04, from: "random" },
+        })
+        .to(slices, 0.04, { x: 0, stagger: { amount: 0.04 } })
+        .to(slices, 0.01, { x: 0, stagger: { amount: 0.04 } });
+
+      link.addEventListener("mouseover", () => {
+        tl.play();
+      });
+      link.addEventListener("mouseout", () => {
+        tl.pause(0);
+      });
     });
   }
 });
