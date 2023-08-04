@@ -3,6 +3,13 @@ gsap.registerPlugin(ScrollTrigger);
 const body = document.querySelector("body");
 body.classList.add("loading");
 
+// if (history.scrollRestoration) {
+//   history.scrollRestoration = "manual";
+// } else {
+//   window.onbeforeunload = function () {
+//     window.scrollTo(0, 0);
+//   };
+// }
 window.addEventListener("DOMContentLoaded", (event) => {
   // Wait until loading animation finishes before initializing
   // all the GSAP logic
@@ -24,7 +31,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
     const observerConfig = {
       attributes: true,
-      attributeFilter: ["style"]
+      attributeFilter: ["style"],
     };
 
     observer.observe(el, observerConfig);
@@ -73,7 +80,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
         if (shouldReverse) {
           timeline.timeScale(2).reverse();
         }
-      }
+      },
     });
   }
 
@@ -81,16 +88,19 @@ window.addEventListener("DOMContentLoaded", (event) => {
   const music = document.querySelector("#audio"); // music
   const headlineGlitch = document.querySelector("#headline-glitch"); // glitch
   const hoverGlitch = document.querySelector("#hover-glitch"); // hover
-  headlineGlitch.volume = 0.7;
+  headlineGlitch.volume = 0.4;
   hoverGlitch.volume = 0.3;
 
   let isLoaded = false;
+  let audioEnabled = false;
   const musicControl = document.querySelector(".play-pause");
   const audioState = new (window.AudioContext || window.webkitAudioContext)();
 
   // Check if playing audio is allowed
   function maybePlay(audio, callback) {
-    if (audioState.state === "running") {
+    console.log("maybePlay", audioState.state, audioEnabled);
+    //if (audioState.state === "running" && audioEnabled) {
+    if (audioEnabled) {
       audio.play();
       if (callback && typeof callback === "function") {
         callback();
@@ -101,24 +111,29 @@ window.addEventListener("DOMContentLoaded", (event) => {
   // initialize music if user clicks on the screen
   function initMusic(e) {
     if (!isLoaded) {
+      audioEnabled = true;
       maybePlay(music, () => {
         if (!e.target.closest(".play-pause")) {
           musicControl.click();
         }
+        body.removeEventListener("click", initMusic);
         isLoaded = true;
       });
     }
   }
 
   body.addEventListener("click", initMusic, false);
+  document.addEventListener("touchend", initMusic, false);
 
   // Music toggle
   musicControl.addEventListener("click", () => {
     if (!isLoaded) return;
     musicControl.classList.toggle("paused");
     if (musicControl.classList.contains("paused")) {
+      audioEnabled = false;
       music.pause();
     } else {
+      audioEnabled = true;
       music.play();
     }
   });
@@ -158,19 +173,30 @@ window.addEventListener("DOMContentLoaded", (event) => {
         immediate: false,
         duration: 1,
         easing: (x) =>
-          x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2 // https://easings.net
+          x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2, // https://easings.net
       });
     });
   });
 
   requestAnimationFrame(raf);
 
+  // window.onbeforeunload = function () {
+  //   // window.scrollTo(0,0);
+  //   lenis.scrollTo(1, { immediate: true });
+  // };
+
   // Initialize
   checkIfLoaded(document.querySelector(".frame-header"), initPage);
+  // checkIfLoaded(document.querySelector(".loading-observer"), () => {
+  //   // Force scroll to the top
+  //   body.classList.remove("loading");
+  //   lenis.scrollTo(1, { duration: 0.2 });
+  // });
 
   // Initialize gsap functionality
   function initPage() {
     body.classList.remove("loading");
+    //lenis.scrollTo(1, { immediate: true });
     const heroIntro = document.querySelector(".hero-intro-trigger");
     if (heroIntro) {
       heroIntro.click();
@@ -179,7 +205,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     // Link sounds
     const hoverSounds = gsap.utils.toArray(".hover-glitch");
     hoverSounds.forEach((el) => {
-      el.addEventListener("mouseover", () => {
+      el.addEventListener("mouseover", (e) => {
         maybePlay(hoverGlitch);
       });
     });
@@ -191,7 +217,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
       let tween = gsap.to(item, {
         duration: 1,
         scrambleText: { text: "{original}", chars: "F0RTH3W1N2023 " },
-        paused: true
+        paused: true,
       });
 
       item.addEventListener("mouseenter", () => {
@@ -209,7 +235,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
       let label = item.querySelector(".triangle-button-label");
       var text = new SplitType(label, {
         types: "words",
-        tagName: "span"
+        tagName: "span",
       });
 
       let tween = gsap.to(text.words, {
@@ -217,10 +243,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
         scrambleText: {
           text: "{original}",
           chars: "F0RTH3W1N2023 ",
-          delimiter: " "
+          delimiter: " ",
         },
         ease: "none",
-        paused: true
+        paused: true,
       });
 
       item.addEventListener("mouseenter", () => {
@@ -234,7 +260,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     // glitch effect on headlines ================================ //
     new SplitType("[glitch-effect]", {
       types: "words",
-      tagName: "span"
+      tagName: "span",
     });
 
     // now duplicate elements inside words
@@ -262,34 +288,34 @@ window.addEventListener("DOMContentLoaded", (event) => {
         onStart: () => {
           if (!isLoaded) return;
           maybePlay(headlineGlitch);
-        }
+        },
       });
       var item = words.querySelectorAll(".word");
       var top = words.querySelectorAll(".top");
 
       tl.to(item, 0.01, {
         opacity: 1,
-        stagger: { amount: 0.2 }
+        stagger: { amount: 0.2 },
       })
         .to(item, 0.01, { y: "random(-50%, 50%)", stagger: { amount: 0.04 } })
         .to(item, 0.04, { y: 0, stagger: { amount: 0.04 } })
         .to(item, 0.04, {
           opacity: 0,
-          stagger: { amount: 0.04, from: "random" }
+          stagger: { amount: 0.04, from: "random" },
         })
         .to(item, 0.01, {
           opacity: 1,
-          stagger: { amount: 0.04, from: "random" }
+          stagger: { amount: 0.04, from: "random" },
         })
         .to(item, 0.04, { x: "random(-50%, 50%)", stagger: { amount: 0.01 } })
         .to(top, 0.01, { x: "random(-50%, 50%)", stagger: { amount: 0.04 } })
         .to(item, 0.04, {
           opacity: 0,
-          stagger: { amount: 0.04, from: "random" }
+          stagger: { amount: 0.04, from: "random" },
         })
         .to(item, 0.01, {
           opacity: 1,
-          stagger: { amount: 0.04, from: "random" }
+          stagger: { amount: 0.04, from: "random" },
         })
         .to(item, 0.04, { x: 0, stagger: { amount: 0.04 } })
         .to(top, 0.01, { x: 0, stagger: { amount: 0.04 } });
@@ -298,13 +324,13 @@ window.addEventListener("DOMContentLoaded", (event) => {
     });
 
     gsap.set("[glitch-effect]", {
-      opacity: 1
+      opacity: 1,
     });
 
     gsap.set("[glitch-effect] .word", {
       opacity: 0,
       y: "random(-50%, 50%)",
-      x: "random(-50%, 50%)"
+      x: "random(-50%, 50%)",
     });
 
     // Scramble Text on Paragraphs ==================================//
@@ -322,7 +348,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
         delay: delay,
         overwrite: true,
         paused: true,
-        ease: "none"
+        ease: "none",
       });
       tl.from(item, { duration: duration, text: "" });
 
@@ -343,7 +369,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     const heroes = gsap.utils.toArray(".factions-slider-hero");
     let factions = {
       homefront: [],
-      sapiens: []
+      sapiens: [],
     };
     let currentIndex = 0,
       prevIndex = 0,
@@ -354,7 +380,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
     // Populate hero data
     heroes.forEach((hero) => {
       const img = hero.querySelector("img");
-      const elInner = `<div class="hero-slice-top"></div><div class="hero-slice-middle"></div><div class="hero-slice-bottom"></div>`;
+      const elInner = `
+      <div class="slice top-third"></div>
+      <div class="slice middle-third"></div>
+      <div class="slice bottom-third"></div>`;
       hero.innerHTML = elInner;
 
       const slices = hero.querySelectorAll("div");
@@ -366,7 +395,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
       gsap.set(slices, {
         opacity: 0,
         y: "random(-50%, 50%)",
-        x: "random(-50%, 50%)"
+        x: "random(-50%, 50%)",
       });
 
       const heroData = {
@@ -374,34 +403,34 @@ window.addEventListener("DOMContentLoaded", (event) => {
         name: hero.dataset.heroName,
         tl: gsap.timeline({
           overwrite: true,
-          paused: true
-        })
+          paused: true,
+        }),
       };
 
       heroData.tl
         .to(slices, 0.01, {
           opacity: 1,
-          stagger: { amount: 0.2 }
+          stagger: { amount: 0.2 },
         })
         .to(slices, 0.01, { y: "random(-50%, 50%)", stagger: { amount: 0.04 } })
         .to(slices, 0.04, { y: 0, stagger: { amount: 0.04 } })
         .to(slices, 0.04, {
           opacity: 0,
-          stagger: { amount: 0.04, from: "random" }
+          stagger: { amount: 0.04, from: "random" },
         })
         .to(slices, 0.01, {
           opacity: 1,
-          stagger: { amount: 0.04, from: "random" }
+          stagger: { amount: 0.04, from: "random" },
         })
         .to(slices, 0.04, { x: "random(-50%, 50%)", stagger: { amount: 0.01 } })
         .to(slices, 0.01, { x: "random(-50%, 50%)", stagger: { amount: 0.04 } })
         .to(slices, 0.04, {
           opacity: 0,
-          stagger: { amount: 0.04, from: "random" }
+          stagger: { amount: 0.04, from: "random" },
         })
         .to(slices, 0.01, {
           opacity: 1,
-          stagger: { amount: 0.04, from: "random" }
+          stagger: { amount: 0.04, from: "random" },
         })
         .to(slices, 0.04, { x: 0, stagger: { amount: 0.04 } })
         .to(slices, 0.01, { x: 0, stagger: { amount: 0.04 } });
@@ -414,8 +443,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
     });
 
     // Slider controls
-    const next = document.querySelector(".factions-slider-arrow.next"),
-      prev = document.querySelector(".factions-slider-arrow.prev"),
+    const next = document.querySelector(
+        ".factions-slider-controls .slider-arrow.next"
+      ),
+      prev = document.querySelector(
+        ".factions-slider-controls .slider-arrow.prev"
+      ),
       label = document.querySelector(".factions-slider-controls-name"),
       labelTl = gsap.timeline();
 
@@ -437,13 +470,13 @@ window.addEventListener("DOMContentLoaded", (event) => {
         .to(label, {
           text: "",
           duration: 0.5,
-          ease: "sine.in"
+          ease: "sine.in",
         })
         .delay(0.5)
         .to(label, {
           text: currentHero.name,
           duration: 0.5,
-          ease: "sine.in"
+          ease: "sine.in",
         });
 
       if (!prevHero) {
@@ -506,7 +539,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
           currentFaction = "homefront";
           goToHero(0);
         }
-      }
+      },
     });
 
     // Trigger - Sapiens
@@ -521,10 +554,276 @@ window.addEventListener("DOMContentLoaded", (event) => {
           console.log("current faction is", currentFaction);
           goToHero(0);
         }
-      }
+      },
     });
 
-    // Force scroll to the top
-    lenis.scrollTo(1);
+    // Weapons Slider ============================================== //
+    const weaponsList = gsap.utils.toArray(".weapons-slide");
+    let weapons = [];
+
+    let currentWeaponIndex = 0,
+      prevWeaponIndex = 0,
+      prevWeapon = null,
+      currentWeapon = null;
+
+    // Populate hero data
+    weaponsList.forEach((weapon) => {
+      const inner = weapon.querySelector(".weapon-slide-inner");
+      const img = inner.querySelector(".weapons-slider-weapon");
+      const detail = weapon.querySelector(".weapon-detail");
+      const elInner = `
+      <div class="slice top-left-third"></div>
+      <div class="slice bottom-left-third"></div>
+      <div class="slice top-middle-third"></div>
+      <div class="slice bottom-middle-third"></div>
+      <div class="slice top-right-third"></div>
+      <div class="slice bottom-right-third"></div>`;
+      inner.innerHTML = elInner;
+
+      const slices = inner.querySelectorAll("div");
+      slices.forEach((slice) => {
+        slice.appendChild(img.cloneNode(true));
+      });
+
+      img.classList.add("invisible");
+      inner.appendChild(img);
+
+      // Defaults
+      gsap.set(slices, {
+        opacity: 0,
+        y: "random(-50%, 50%)",
+        x: "random(-50%, 50%)",
+      });
+      gsap.set(detail, {
+        opacity: 0,
+      });
+
+      const weaponData = {
+        el: weapon,
+        name: weapon.dataset.name,
+        damage: parseFloat(weapon.dataset.damage),
+        accuracy: parseFloat(weapon.dataset.accuracy),
+        fireRate: parseFloat(weapon.dataset.fireRate),
+        tl: gsap.timeline({
+          overwrite: true,
+          paused: true,
+        }),
+      };
+
+      weaponData.tl
+        .to(slices, 0.01, {
+          opacity: 1,
+          stagger: { amount: 0.2 },
+        })
+        .to(slices, 0.01, { y: "random(-50%, 50%)", stagger: { amount: 0.04 } })
+        .to(slices, 0.04, { y: 0, stagger: { amount: 0.04 } })
+        .to(slices, 0.04, {
+          opacity: 0,
+          stagger: { amount: 0.04, from: "random" },
+        })
+        .to(slices, 0.01, {
+          opacity: 1,
+          stagger: { amount: 0.04, from: "random" },
+        })
+        .to(slices, 0.04, { x: "random(-50%, 50%)", stagger: { amount: 0.01 } })
+        .to(slices, 0.01, { x: "random(-50%, 50%)", stagger: { amount: 0.04 } })
+        .to(slices, 0.04, {
+          opacity: 0,
+          stagger: { amount: 0.04, from: "random" },
+        })
+        .to(slices, 0.01, {
+          opacity: 1,
+          stagger: { amount: 0.04, from: "random" },
+        })
+        .to(slices, 0.04, { x: 0, stagger: { amount: 0.04 } })
+        .to(slices, 0.01, { x: 0, stagger: { amount: 0.04 } })
+        // weapon detail
+        .to(detail, 0.04, { opacity: 1 })
+        .to(detail, 0.04, { opacity: 0 })
+        .to(detail, 0.04, { opacity: 1 })
+        .to(detail, 0.04, { opacity: 0 })
+        .to(detail, 0.04, { opacity: 1 })
+        .to(detail, 0.04, { opacity: 0 })
+        .to(detail, 0.04, { opacity: 1 });
+
+      weapons.push(weaponData);
+    });
+
+    // Slider controls
+    const weaponsNext = document.querySelector(
+        ".weapons-slider-controls .slider-arrow.next"
+      ),
+      weaponsPrev = document.querySelector(
+        ".weapons-slider-controls .slider-arrow.prev"
+      ),
+      damageBar = document.querySelector(".weapons-stats-bar-inner.damage"),
+      accuracyBar = document.querySelector(".weapons-stats-bar-inner.accuracy"),
+      fireRateBar = document.querySelector(
+        ".weapons-stats-bar-inner.fire-rate"
+      ),
+      damageTL = gsap.timeline(),
+      accuracyTL = gsap.timeline(),
+      fireRateTL = gsap.timeline(),
+      weaponlabel = document.querySelector(".weapons-slider-controls-name"),
+      weaponlabelTl = gsap.timeline();
+
+    function goToWeapon(index) {
+      if (weapons[index] === "undefined") return;
+
+      currentWeaponIndex = index;
+      transitionWeapon();
+    }
+
+    // Transition function between heroes
+    function transitionWeapon() {
+      if (prevWeapon && prevWeapon === currentWeapon) return;
+      prevWeapon = currentWeapon;
+      currentWeapon = weapons[currentWeaponIndex];
+
+      // update Stats
+      damageTL.to(damageBar, {
+        width: `${currentWeapon.damage}%`,
+        duration: 0.3,
+        ease: "sine.in",
+      });
+
+      accuracyTL.to(accuracyBar, {
+        width: `${currentWeapon.accuracy}%`,
+        duration: 0.3,
+        ease: "sine.in",
+      });
+
+      fireRateTL.to(fireRateBar, {
+        width: `${currentWeapon.fireRate}%`,
+        duration: 0.3,
+        ease: "sine.in",
+      });
+
+      // update hero hame
+      weaponlabelTl
+        .to(weaponlabel, {
+          text: "",
+          duration: 0.5,
+          ease: "sine.in",
+        })
+        .delay(0.5)
+        .to(weaponlabel, {
+          text: currentWeapon.name,
+          duration: 0.5,
+          ease: "sine.in",
+        });
+
+      if (!prevWeapon) {
+        currentWeapon.tl.play();
+      } else {
+        prevWeapon.tl.eventCallback("onReverseComplete", () => {
+          currentWeapon.tl.play();
+        });
+
+        prevWeapon.tl.reverse();
+      }
+
+      // Play glitch effect
+      if (!isLoaded) return;
+      maybePlay(headlineGlitch);
+    }
+
+    function updateWeaponIndex(type) {
+      if (type === "next") {
+        prevWeaponIndex = currentWeaponIndex;
+        currentWeaponIndex =
+          currentWeaponIndex >= weapons.length - 1 ? 0 : currentWeaponIndex + 1;
+      }
+      if (type === "prev") {
+        prevWeaponIndex = currentWeaponIndex;
+
+        currentWeaponIndex =
+          currentWeaponIndex - 1 < 0
+            ? weapons.length - 1
+            : currentWeaponIndex - 1;
+      }
+    }
+
+    weaponsNext.addEventListener("click", () => {
+      updateWeaponIndex("next");
+      transitionWeapon();
+    });
+
+    weaponsPrev.addEventListener("click", () => {
+      updateWeaponIndex("prev");
+      transitionWeapon();
+    });
+
+    // Trigger initial
+    ScrollTrigger.create({
+      trigger: "#weapons-content-trigger",
+      start: "top center",
+      end: "bottom center",
+      pin: false,
+      onEnter: () => {
+        goToWeapon(0);
+      },
+    });
+
+    // glitch effect for footer linkst
+    const links = gsap.utils.toArray("[glitch-link]");
+
+    links.forEach((link) => {
+      const el = link.querySelector("[glitch-el]");
+      const inner = link.querySelector("[glitch-wrapper]");
+      const elInner = `
+      <div class="slice top-left"></div>
+      <div class="slice bottom-left"></div>
+      <div class="slice top-right"></div>
+      <div class="slice bottom-right"></div>`;
+      inner.innerHTML = elInner;
+
+      const slices = inner.querySelectorAll("div");
+      slices.forEach((slice) => {
+        slice.appendChild(el.cloneNode(true));
+      });
+
+      if (el.hasAttribute("glitch-sizer")) {
+        el.classList.add("invisible");
+        inner.appendChild(el);
+      }
+
+      // set button timeline
+      const tl = gsap.timeline({ paused: true });
+
+      tl.to(slices, 0.01, {
+        opacity: 1,
+        stagger: { amount: 0.2 },
+      })
+        .to(slices, 0.01, { y: "random(-50%, 50%)", stagger: { amount: 0.04 } })
+        .to(slices, 0.04, { y: 0, stagger: { amount: 0.04 } })
+        .to(slices, 0.04, {
+          opacity: 0,
+          stagger: { amount: 0.04, from: "random" },
+        })
+        .to(slices, 0.01, {
+          opacity: 1,
+          stagger: { amount: 0.04, from: "random" },
+        })
+        .to(slices, 0.04, { x: "random(-50%, 50%)", stagger: { amount: 0.01 } })
+        .to(slices, 0.01, { x: "random(-50%, 50%)", stagger: { amount: 0.04 } })
+        .to(slices, 0.04, {
+          opacity: 0,
+          stagger: { amount: 0.04, from: "random" },
+        })
+        .to(slices, 0.01, {
+          opacity: 1,
+          stagger: { amount: 0.04, from: "random" },
+        })
+        .to(slices, 0.04, { x: 0, stagger: { amount: 0.04 } })
+        .to(slices, 0.01, { x: 0, stagger: { amount: 0.04 } });
+
+      link.addEventListener("mouseover", () => {
+        tl.play();
+      });
+      link.addEventListener("mouseout", () => {
+        tl.pause(0);
+      });
+    });
   }
 });
