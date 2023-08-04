@@ -1369,13 +1369,13 @@ window.addEventListener("DOMContentLoaded", (event)=>{
         // Mobile menu interaction
         const menuTrigger = document.querySelector(".menu-trigger");
         // Store link labels
-        document.querySelectorAll(".nav-link.mobile").forEach((item)=>{
+        document.querySelectorAll(".mobile-nav-link-label").forEach((item)=>{
             item.dataset.label = item.textContent;
         });
         const menuTl = (0, _gsap.gsap).timeline({
             paused: true
         });
-        menuTl.to(".nav-link.mobile", {
+        menuTl.to(".mobile-nav-link-label", {
             text: (index, target)=>{
                 return target.dataset.label;
             },
@@ -1390,7 +1390,7 @@ window.addEventListener("DOMContentLoaded", (event)=>{
             duration: 0.3,
             stagger: 0.2
         });
-        (0, _gsap.gsap).set(".nav-link.mobile", {
+        (0, _gsap.gsap).set(".mobile-nav-link-label", {
             text: ""
         });
         (0, _gsap.gsap).set(".nav-link-divider", {

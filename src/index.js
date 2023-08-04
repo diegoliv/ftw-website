@@ -820,12 +820,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
     // Mobile menu interaction
     const menuTrigger = document.querySelector(".menu-trigger");
     // Store link labels
-    document.querySelectorAll(".nav-link.mobile").forEach((item) => {
+    document.querySelectorAll(".mobile-nav-link-label").forEach((item) => {
       item.dataset.label = item.textContent;
     });
     const menuTl = gsap.timeline({ paused: true });
     menuTl
-      .to(".nav-link.mobile", {
+      .to(".mobile-nav-link-label", {
         text: (index, target) => {
           return target.dataset.label;
         },
@@ -843,7 +843,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
         stagger: 0.2,
       });
 
-    gsap.set(".nav-link.mobile", { text: "" });
+    gsap.set(".mobile-nav-link-label", { text: "" });
     gsap.set(".nav-link-divider", { scaleX: 0 });
     gsap.set(".nav-link-gradient", { opacity: 0 });
     menuTrigger.addEventListener("click", (e) => {
