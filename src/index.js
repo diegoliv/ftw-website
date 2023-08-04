@@ -832,16 +832,24 @@ window.addEventListener("DOMContentLoaded", (event) => {
         duration: 0.5,
         stagger: 0.2,
       })
-      .to(".nav-link-divider", {
-        scaleX: 1,
-        duration: 0.3,
-        stagger: 0.2,
-      })
-      .to(".nav-link-gradient", {
-        opacity: 0.5,
-        duration: 0.3,
-        stagger: 0.2,
-      });
+      .to(
+        ".nav-link-divider",
+        {
+          scaleX: 1,
+          duration: 0.3,
+          stagger: 0.2,
+        },
+        0
+      )
+      .to(
+        ".nav-link-gradient",
+        {
+          opacity: 0.5,
+          duration: 0.3,
+          stagger: 0.2,
+        },
+        0
+      );
 
     gsap.set(".mobile-nav-link-label", { text: "" });
     gsap.set(".nav-link-divider", { scaleX: 0 });

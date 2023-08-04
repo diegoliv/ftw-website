@@ -1385,11 +1385,11 @@ window.addEventListener("DOMContentLoaded", (event)=>{
             scaleX: 1,
             duration: 0.3,
             stagger: 0.2
-        }).to(".nav-link-gradient", {
+        }, 0).to(".nav-link-gradient", {
             opacity: 0.5,
             duration: 0.3,
             stagger: 0.2
-        });
+        }, 0);
         (0, _gsap.gsap).set(".mobile-nav-link-label", {
             text: ""
         });
