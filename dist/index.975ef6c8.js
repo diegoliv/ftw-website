@@ -1408,6 +1408,10 @@ window.addEventListener("DOMContentLoaded", (event)=>{
         document.querySelectorAll(".nav-link.mobile").forEach(()=>{
             menuTrigger.click();
         });
+        // Form submit
+        document.querySelector(".newsletter-submit").addEventListener("click", ()=>{
+            document.querySelector(".form-submit-hidden").click();
+        });
     }
 });
 

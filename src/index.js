@@ -864,8 +864,15 @@ window.addEventListener("DOMContentLoaded", (event) => {
     });
 
     // Close mobile menu if link is clicked
-    document.querySelectorAll('.nav-link.mobile').forEach(() => {
+    document.querySelectorAll(".nav-link.mobile").forEach(() => {
       menuTrigger.click();
     });
+
+    // Form submit
+    document
+      .querySelector(".newsletter-submit")
+      .addEventListener("click", () => {
+        document.querySelector(".form-submit-hidden").click();
+      });
   }
 });
