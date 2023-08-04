@@ -1,15 +1,16 @@
-gsap.registerPlugin(ScrambleTextPlugin);
-gsap.registerPlugin(ScrollTrigger);
+import SplitType from "split-type";
+import Lenis from "@studio-freight/lenis";
+
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { TextPlugin } from "gsap/TextPlugin";
+import ScrambleTextPlugin from "./ScrambleTextPlugin.min.js";
+
+gsap.registerPlugin(ScrollTrigger, TextPlugin, ScrambleTextPlugin);
+
 const body = document.querySelector("body");
 body.classList.add("loading");
 
-// if (history.scrollRestoration) {
-//   history.scrollRestoration = "manual";
-// } else {
-//   window.onbeforeunload = function () {
-//     window.scrollTo(0, 0);
-//   };
-// }
 window.addEventListener("DOMContentLoaded", (event) => {
   // Wait until loading animation finishes before initializing
   // all the GSAP logic
@@ -180,18 +181,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
   requestAnimationFrame(raf);
 
-  // window.onbeforeunload = function () {
-  //   // window.scrollTo(0,0);
-  //   lenis.scrollTo(1, { immediate: true });
-  // };
-
   // Initialize
   checkIfLoaded(document.querySelector(".frame-header"), initPage);
-  // checkIfLoaded(document.querySelector(".loading-observer"), () => {
-  //   // Force scroll to the top
-  //   body.classList.remove("loading");
-  //   lenis.scrollTo(1, { duration: 0.2 });
-  // });
 
   // Initialize gsap functionality
   function initPage() {
