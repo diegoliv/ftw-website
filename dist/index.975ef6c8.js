@@ -1404,6 +1404,10 @@ window.addEventListener("DOMContentLoaded", (event)=>{
             else menuTl.play();
             menuTrigger.classList.toggle("active");
         });
+        // Close mobile menu if link is clicked
+        document.querySelectorAll(".nav-link.mobile").forEach(()=>{
+            menuTrigger.click();
+        });
     }
 });
 
