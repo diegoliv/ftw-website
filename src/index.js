@@ -182,9 +182,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
   requestAnimationFrame(raf);
 
   // Initialize
-  //checkIfLoaded(document.querySelector(".frame-header"), initPage);
-
-  initPage();
+  checkIfLoaded(document.querySelector(".frame-header"), initPage);
+  //initPage();
 
   // Initialize gsap functionality
   function initPage() {
@@ -330,12 +329,23 @@ window.addEventListener("DOMContentLoaded", (event) => {
     const scrambleParagraphs = gsap.utils.toArray("[scramble]");
 
     scrambleParagraphs.forEach((item) => {
-      var trigger = item.dataset.scrambleTrigger || item;
-      var delay = Number(item.dataset.scrambleDelay) || 1;
-      var duration = Number(item.dataset.scrambleDuration) || 2;
-      var start = item.dataset.scrambleStart;
-      var end = item.dataset.scrambleEnd;
-      var once = Object.keys(item.dataset).indexOf("scrambleOnce") !== -1;
+      // wrap and clone item to prevent paragraphs vertically centered to "grow".
+      const clone = document.createElement(item.tagName);
+      clone.className = item.className;
+      //clone.setAttribute("style", item.getAttribute("style"));
+      clone.setAttribute("aria-hidden", "true");
+      clone.innerHtml = item.innerHTML;
+      const wrapper = document.createElement("div");
+      wrapper.appendChild(clone);
+      item.parentNode.insertBefore(wrapper, item);
+      wrapper.appendChild(item);
+
+      const trigger = item.dataset.scrambleTrigger || item;
+      const delay = Number(item.dataset.scrambleDelay) || 1;
+      const duration = Number(item.dataset.scrambleDuration) || 2;
+      const start = item.dataset.scrambleStart;
+      const end = item.dataset.scrambleEnd;
+      const once = Object.keys(item.dataset).indexOf("scrambleOnce") !== -1;
 
       let tl = gsap.timeline({
         delay: delay,
@@ -462,13 +472,13 @@ window.addEventListener("DOMContentLoaded", (event) => {
       labelTl
         .to(label, {
           text: "",
-          duration: 0.5,
+          duration: 0.25,
           ease: "sine.in",
         })
-        .delay(0.5)
+        .delay(0.25)
         .to(label, {
           text: currentHero.name,
-          duration: 0.5,
+          duration: 0.25,
           ease: "sine.in",
         });
 
