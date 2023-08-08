@@ -182,7 +182,9 @@ window.addEventListener("DOMContentLoaded", (event) => {
   requestAnimationFrame(raf);
 
   // Initialize
-  checkIfLoaded(document.querySelector(".frame-header"), initPage);
+  //checkIfLoaded(document.querySelector(".frame-header"), initPage);
+
+  initPage();
 
   // Initialize gsap functionality
   function initPage() {
@@ -288,28 +290,28 @@ window.addEventListener("DOMContentLoaded", (event) => {
         opacity: 1,
         stagger: { amount: 0.2 },
       })
-        .to(item, 0.01, { y: "random(-50%, 50%)", stagger: { amount: 0.04 } })
-        .to(item, 0.04, { y: 0, stagger: { amount: 0.04 } })
-        .to(item, 0.04, {
+        .to(item, 0.01, { y: "random(-50%, 50%)", stagger: { amount: 0.02 } })
+        .to(item, 0.02, { y: 0, stagger: { amount: 0.02 } })
+        .to(item, 0.02, {
           opacity: 0,
-          stagger: { amount: 0.04, from: "random" },
+          stagger: { amount: 0.02, from: "random" },
         })
         .to(item, 0.01, {
           opacity: 1,
-          stagger: { amount: 0.04, from: "random" },
+          stagger: { amount: 0.02, from: "random" },
         })
-        .to(item, 0.04, { x: "random(-50%, 50%)", stagger: { amount: 0.01 } })
-        .to(top, 0.01, { x: "random(-50%, 50%)", stagger: { amount: 0.04 } })
-        .to(item, 0.04, {
+        .to(item, 0.02, { x: "random(-50%, 50%)", stagger: { amount: 0.01 } })
+        .to(top, 0.01, { x: "random(-50%, 50%)", stagger: { amount: 0.02 } })
+        .to(item, 0.02, {
           opacity: 0,
-          stagger: { amount: 0.04, from: "random" },
+          stagger: { amount: 0.02, from: "random" },
         })
         .to(item, 0.01, {
           opacity: 1,
-          stagger: { amount: 0.04, from: "random" },
+          stagger: { amount: 0.02, from: "random" },
         })
-        .to(item, 0.04, { x: 0, stagger: { amount: 0.04 } })
-        .to(top, 0.01, { x: 0, stagger: { amount: 0.04 } });
+        .to(item, 0.02, { x: 0, stagger: { amount: 0.02 } })
+        .to(top, 0.01, { x: 0, stagger: { amount: 0.02 } });
 
       createScrollTrigger(trigger, tl, true, start, end, delay, true, once);
     });
@@ -403,28 +405,28 @@ window.addEventListener("DOMContentLoaded", (event) => {
           opacity: 1,
           stagger: { amount: 0.2 },
         })
-        .to(slices, 0.01, { y: "random(-50%, 50%)", stagger: { amount: 0.04 } })
-        .to(slices, 0.04, { y: 0, stagger: { amount: 0.04 } })
-        .to(slices, 0.04, {
+        .to(slices, 0.01, { y: "random(-50%, 50%)", stagger: { amount: 0.02 } })
+        .to(slices, 0.02, { y: 0, stagger: { amount: 0.02 } })
+        .to(slices, 0.02, {
           opacity: 0,
-          stagger: { amount: 0.04, from: "random" },
+          stagger: { amount: 0.02, from: "random" },
         })
         .to(slices, 0.01, {
           opacity: 1,
-          stagger: { amount: 0.04, from: "random" },
+          stagger: { amount: 0.02, from: "random" },
         })
-        .to(slices, 0.04, { x: "random(-50%, 50%)", stagger: { amount: 0.01 } })
-        .to(slices, 0.01, { x: "random(-50%, 50%)", stagger: { amount: 0.04 } })
-        .to(slices, 0.04, {
+        .to(slices, 0.02, { x: "random(-50%, 50%)", stagger: { amount: 0.01 } })
+        .to(slices, 0.01, { x: "random(-50%, 50%)", stagger: { amount: 0.02 } })
+        .to(slices, 0.02, {
           opacity: 0,
-          stagger: { amount: 0.04, from: "random" },
+          stagger: { amount: 0.02, from: "random" },
         })
         .to(slices, 0.01, {
           opacity: 1,
-          stagger: { amount: 0.04, from: "random" },
+          stagger: { amount: 0.02, from: "random" },
         })
-        .to(slices, 0.04, { x: 0, stagger: { amount: 0.04 } })
-        .to(slices, 0.01, { x: 0, stagger: { amount: 0.04 } });
+        .to(slices, 0.02, { x: 0, stagger: { amount: 0.02 } })
+        .to(slices, 0.01, { x: 0, stagger: { amount: 0.02 } });
 
       const faction = hero.dataset.heroFaction;
 
@@ -606,28 +608,28 @@ window.addEventListener("DOMContentLoaded", (event) => {
           opacity: 1,
           stagger: { amount: 0.2 },
         })
-        .to(slices, 0.01, { y: "random(-50%, 50%)", stagger: { amount: 0.04 } })
-        .to(slices, 0.04, { y: 0, stagger: { amount: 0.04 } })
-        .to(slices, 0.04, {
+        .to(slices, 0.01, { y: "random(-50%, 50%)", stagger: { amount: 0.02 } })
+        .to(slices, 0.02, { y: 0, stagger: { amount: 0.02 } })
+        .to(slices, 0.02, {
           opacity: 0,
-          stagger: { amount: 0.04, from: "random" },
+          stagger: { amount: 0.02, from: "random" },
         })
         .to(slices, 0.01, {
           opacity: 1,
-          stagger: { amount: 0.04, from: "random" },
+          stagger: { amount: 0.02, from: "random" },
         })
-        .to(slices, 0.04, { x: "random(-50%, 50%)", stagger: { amount: 0.01 } })
-        .to(slices, 0.01, { x: "random(-50%, 50%)", stagger: { amount: 0.04 } })
-        .to(slices, 0.04, {
+        .to(slices, 0.02, { x: "random(-50%, 50%)", stagger: { amount: 0.01 } })
+        .to(slices, 0.01, { x: "random(-50%, 50%)", stagger: { amount: 0.02 } })
+        .to(slices, 0.02, {
           opacity: 0,
-          stagger: { amount: 0.04, from: "random" },
+          stagger: { amount: 0.02, from: "random" },
         })
         .to(slices, 0.01, {
           opacity: 1,
-          stagger: { amount: 0.04, from: "random" },
+          stagger: { amount: 0.02, from: "random" },
         })
-        .to(slices, 0.04, { x: 0, stagger: { amount: 0.04 } })
-        .to(slices, 0.01, { x: 0, stagger: { amount: 0.04 } })
+        .to(slices, 0.02, { x: 0, stagger: { amount: 0.02 } })
+        .to(slices, 0.01, { x: 0, stagger: { amount: 0.02 } })
         // weapon detail
         .to(detail, 0.04, { opacity: 1 })
         .to(detail, 0.04, { opacity: 0 })
@@ -690,17 +692,17 @@ window.addEventListener("DOMContentLoaded", (event) => {
         ease: "sine.in",
       });
 
-      // update hero hame
+      // update weapon hame
       weaponlabelTl
         .to(weaponlabel, {
           text: "",
-          duration: 0.5,
+          duration: 0.25,
           ease: "sine.in",
         })
-        .delay(0.5)
+        .delay(0.25)
         .to(weaponlabel, {
           text: currentWeapon.name,
-          duration: 0.5,
+          duration: 0.25,
           ease: "sine.in",
         });
 
@@ -786,28 +788,28 @@ window.addEventListener("DOMContentLoaded", (event) => {
         opacity: 1,
         stagger: { amount: 0.2 },
       })
-        .to(slices, 0.01, { y: "random(-50%, 50%)", stagger: { amount: 0.04 } })
-        .to(slices, 0.04, { y: 0, stagger: { amount: 0.04 } })
-        .to(slices, 0.04, {
+        .to(slices, 0.01, { y: "random(-50%, 50%)", stagger: { amount: 0.02 } })
+        .to(slices, 0.02, { y: 0, stagger: { amount: 0.02 } })
+        .to(slices, 0.02, {
           opacity: 0,
-          stagger: { amount: 0.04, from: "random" },
+          stagger: { amount: 0.02, from: "random" },
         })
         .to(slices, 0.01, {
           opacity: 1,
-          stagger: { amount: 0.04, from: "random" },
+          stagger: { amount: 0.02, from: "random" },
         })
-        .to(slices, 0.04, { x: "random(-50%, 50%)", stagger: { amount: 0.01 } })
-        .to(slices, 0.01, { x: "random(-50%, 50%)", stagger: { amount: 0.04 } })
-        .to(slices, 0.04, {
+        .to(slices, 0.02, { x: "random(-50%, 50%)", stagger: { amount: 0.01 } })
+        .to(slices, 0.01, { x: "random(-50%, 50%)", stagger: { amount: 0.02 } })
+        .to(slices, 0.02, {
           opacity: 0,
-          stagger: { amount: 0.04, from: "random" },
+          stagger: { amount: 0.02, from: "random" },
         })
         .to(slices, 0.01, {
           opacity: 1,
-          stagger: { amount: 0.04, from: "random" },
+          stagger: { amount: 0.02, from: "random" },
         })
-        .to(slices, 0.04, { x: 0, stagger: { amount: 0.04 } })
-        .to(slices, 0.01, { x: 0, stagger: { amount: 0.04 } });
+        .to(slices, 0.02, { x: 0, stagger: { amount: 0.02 } })
+        .to(slices, 0.01, { x: 0, stagger: { amount: 0.02 } });
 
       link.addEventListener("mouseover", () => {
         tl.play();
@@ -864,8 +866,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
     });
 
     // Close mobile menu if link is clicked
-    document.querySelectorAll(".nav-link.mobile").forEach(() => {
-      menuTrigger.click();
+    document.querySelectorAll(".nav-link.mobile").forEach((link) => {
+      link.addEventListener("click", () => {
+        menuTrigger.click();
+      });
     });
 
     // Form submit

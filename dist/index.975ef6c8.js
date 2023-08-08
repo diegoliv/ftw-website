@@ -718,7 +718,8 @@ window.addEventListener("DOMContentLoaded", (event)=>{
     });
     requestAnimationFrame(raf);
     // Initialize
-    checkIfLoaded(document.querySelector(".frame-header"), initPage);
+    //checkIfLoaded(document.querySelector(".frame-header"), initPage);
+    initPage();
     // Initialize gsap functionality
     function initPage() {
         body.classList.remove("loading");
@@ -813,26 +814,26 @@ window.addEventListener("DOMContentLoaded", (event)=>{
             }).to(item, 0.01, {
                 y: "random(-50%, 50%)",
                 stagger: {
-                    amount: 0.04
+                    amount: 0.02
                 }
-            }).to(item, 0.04, {
+            }).to(item, 0.02, {
                 y: 0,
                 stagger: {
-                    amount: 0.04
+                    amount: 0.02
                 }
-            }).to(item, 0.04, {
+            }).to(item, 0.02, {
                 opacity: 0,
                 stagger: {
-                    amount: 0.04,
+                    amount: 0.02,
                     from: "random"
                 }
             }).to(item, 0.01, {
                 opacity: 1,
                 stagger: {
-                    amount: 0.04,
+                    amount: 0.02,
                     from: "random"
                 }
-            }).to(item, 0.04, {
+            }).to(item, 0.02, {
                 x: "random(-50%, 50%)",
                 stagger: {
                     amount: 0.01
@@ -840,29 +841,29 @@ window.addEventListener("DOMContentLoaded", (event)=>{
             }).to(top, 0.01, {
                 x: "random(-50%, 50%)",
                 stagger: {
-                    amount: 0.04
+                    amount: 0.02
                 }
-            }).to(item, 0.04, {
+            }).to(item, 0.02, {
                 opacity: 0,
                 stagger: {
-                    amount: 0.04,
+                    amount: 0.02,
                     from: "random"
                 }
             }).to(item, 0.01, {
                 opacity: 1,
                 stagger: {
-                    amount: 0.04,
+                    amount: 0.02,
                     from: "random"
                 }
-            }).to(item, 0.04, {
+            }).to(item, 0.02, {
                 x: 0,
                 stagger: {
-                    amount: 0.04
+                    amount: 0.02
                 }
             }).to(top, 0.01, {
                 x: 0,
                 stagger: {
-                    amount: 0.04
+                    amount: 0.02
                 }
             });
             createScrollTrigger(trigger, tl, true, start, end, delay, true, once);
@@ -937,26 +938,26 @@ window.addEventListener("DOMContentLoaded", (event)=>{
             }).to(slices, 0.01, {
                 y: "random(-50%, 50%)",
                 stagger: {
-                    amount: 0.04
+                    amount: 0.02
                 }
-            }).to(slices, 0.04, {
+            }).to(slices, 0.02, {
                 y: 0,
                 stagger: {
-                    amount: 0.04
+                    amount: 0.02
                 }
-            }).to(slices, 0.04, {
+            }).to(slices, 0.02, {
                 opacity: 0,
                 stagger: {
-                    amount: 0.04,
+                    amount: 0.02,
                     from: "random"
                 }
             }).to(slices, 0.01, {
                 opacity: 1,
                 stagger: {
-                    amount: 0.04,
+                    amount: 0.02,
                     from: "random"
                 }
-            }).to(slices, 0.04, {
+            }).to(slices, 0.02, {
                 x: "random(-50%, 50%)",
                 stagger: {
                     amount: 0.01
@@ -964,29 +965,29 @@ window.addEventListener("DOMContentLoaded", (event)=>{
             }).to(slices, 0.01, {
                 x: "random(-50%, 50%)",
                 stagger: {
-                    amount: 0.04
+                    amount: 0.02
                 }
-            }).to(slices, 0.04, {
+            }).to(slices, 0.02, {
                 opacity: 0,
                 stagger: {
-                    amount: 0.04,
+                    amount: 0.02,
                     from: "random"
                 }
             }).to(slices, 0.01, {
                 opacity: 1,
                 stagger: {
-                    amount: 0.04,
+                    amount: 0.02,
                     from: "random"
                 }
-            }).to(slices, 0.04, {
+            }).to(slices, 0.02, {
                 x: 0,
                 stagger: {
-                    amount: 0.04
+                    amount: 0.02
                 }
             }).to(slices, 0.01, {
                 x: 0,
                 stagger: {
-                    amount: 0.04
+                    amount: 0.02
                 }
             });
             const faction = hero.dataset.heroFaction;
@@ -1130,26 +1131,26 @@ window.addEventListener("DOMContentLoaded", (event)=>{
             }).to(slices, 0.01, {
                 y: "random(-50%, 50%)",
                 stagger: {
-                    amount: 0.04
+                    amount: 0.02
                 }
-            }).to(slices, 0.04, {
+            }).to(slices, 0.02, {
                 y: 0,
                 stagger: {
-                    amount: 0.04
+                    amount: 0.02
                 }
-            }).to(slices, 0.04, {
+            }).to(slices, 0.02, {
                 opacity: 0,
                 stagger: {
-                    amount: 0.04,
+                    amount: 0.02,
                     from: "random"
                 }
             }).to(slices, 0.01, {
                 opacity: 1,
                 stagger: {
-                    amount: 0.04,
+                    amount: 0.02,
                     from: "random"
                 }
-            }).to(slices, 0.04, {
+            }).to(slices, 0.02, {
                 x: "random(-50%, 50%)",
                 stagger: {
                     amount: 0.01
@@ -1157,29 +1158,29 @@ window.addEventListener("DOMContentLoaded", (event)=>{
             }).to(slices, 0.01, {
                 x: "random(-50%, 50%)",
                 stagger: {
-                    amount: 0.04
+                    amount: 0.02
                 }
-            }).to(slices, 0.04, {
+            }).to(slices, 0.02, {
                 opacity: 0,
                 stagger: {
-                    amount: 0.04,
+                    amount: 0.02,
                     from: "random"
                 }
             }).to(slices, 0.01, {
                 opacity: 1,
                 stagger: {
-                    amount: 0.04,
+                    amount: 0.02,
                     from: "random"
                 }
-            }).to(slices, 0.04, {
+            }).to(slices, 0.02, {
                 x: 0,
                 stagger: {
-                    amount: 0.04
+                    amount: 0.02
                 }
             }).to(slices, 0.01, {
                 x: 0,
                 stagger: {
-                    amount: 0.04
+                    amount: 0.02
                 }
             })// weapon detail
             .to(detail, 0.04, {
@@ -1227,14 +1228,14 @@ window.addEventListener("DOMContentLoaded", (event)=>{
                 duration: 0.3,
                 ease: "sine.in"
             });
-            // update hero hame
+            // update weapon hame
             weaponlabelTl.to(weaponlabel, {
                 text: "",
-                duration: 0.5,
+                duration: 0.25,
                 ease: "sine.in"
-            }).delay(0.5).to(weaponlabel, {
+            }).delay(0.25).to(weaponlabel, {
                 text: currentWeapon.name,
-                duration: 0.5,
+                duration: 0.25,
                 ease: "sine.in"
             });
             if (!prevWeapon) currentWeapon.tl.play();
@@ -1307,26 +1308,26 @@ window.addEventListener("DOMContentLoaded", (event)=>{
             }).to(slices, 0.01, {
                 y: "random(-50%, 50%)",
                 stagger: {
-                    amount: 0.04
+                    amount: 0.02
                 }
-            }).to(slices, 0.04, {
+            }).to(slices, 0.02, {
                 y: 0,
                 stagger: {
-                    amount: 0.04
+                    amount: 0.02
                 }
-            }).to(slices, 0.04, {
+            }).to(slices, 0.02, {
                 opacity: 0,
                 stagger: {
-                    amount: 0.04,
+                    amount: 0.02,
                     from: "random"
                 }
             }).to(slices, 0.01, {
                 opacity: 1,
                 stagger: {
-                    amount: 0.04,
+                    amount: 0.02,
                     from: "random"
                 }
-            }).to(slices, 0.04, {
+            }).to(slices, 0.02, {
                 x: "random(-50%, 50%)",
                 stagger: {
                     amount: 0.01
@@ -1334,29 +1335,29 @@ window.addEventListener("DOMContentLoaded", (event)=>{
             }).to(slices, 0.01, {
                 x: "random(-50%, 50%)",
                 stagger: {
-                    amount: 0.04
+                    amount: 0.02
                 }
-            }).to(slices, 0.04, {
+            }).to(slices, 0.02, {
                 opacity: 0,
                 stagger: {
-                    amount: 0.04,
+                    amount: 0.02,
                     from: "random"
                 }
             }).to(slices, 0.01, {
                 opacity: 1,
                 stagger: {
-                    amount: 0.04,
+                    amount: 0.02,
                     from: "random"
                 }
-            }).to(slices, 0.04, {
+            }).to(slices, 0.02, {
                 x: 0,
                 stagger: {
-                    amount: 0.04
+                    amount: 0.02
                 }
             }).to(slices, 0.01, {
                 x: 0,
                 stagger: {
-                    amount: 0.04
+                    amount: 0.02
                 }
             });
             link.addEventListener("mouseover", ()=>{
@@ -1405,8 +1406,10 @@ window.addEventListener("DOMContentLoaded", (event)=>{
             menuTrigger.classList.toggle("active");
         });
         // Close mobile menu if link is clicked
-        document.querySelectorAll(".nav-link.mobile").forEach(()=>{
-            menuTrigger.click();
+        document.querySelectorAll(".nav-link.mobile").forEach((link)=>{
+            link.addEventListener("click", ()=>{
+                menuTrigger.click();
+            });
         });
         // Form submit
         document.querySelector(".newsletter-submit").addEventListener("click", ()=>{
