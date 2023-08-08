@@ -182,8 +182,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
   requestAnimationFrame(raf);
 
   // Initialize
-  checkIfLoaded(document.querySelector(".frame-header"), initPage);
-  //initPage();
+  //checkIfLoaded(document.querySelector(".frame-header"), initPage);
+  initPage();
 
   // Initialize gsap functionality
   function initPage() {
@@ -330,15 +330,11 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
     scrambleParagraphs.forEach((item) => {
       // wrap and clone item to prevent paragraphs vertically centered to "grow".
-      const clone = document.createElement(item.tagName);
-      clone.className = item.className;
-      //clone.setAttribute("style", item.getAttribute("style"));
-      clone.setAttribute("aria-hidden", "true");
-      clone.innerHtml = item.innerHTML;
       const wrapper = document.createElement("div");
-      wrapper.appendChild(clone);
       item.parentNode.insertBefore(wrapper, item);
+      wrapper.innerHTML = `<${item.tagName} class="${item.className}" aria-hidden="true">${item.innerHTML}</${item.tagName}>`;
       wrapper.appendChild(item);
+      wrapper.setAttribute("class", "scramble-wrapper");
 
       const trigger = item.dataset.scrambleTrigger || item;
       const delay = Number(item.dataset.scrambleDelay) || 1;
