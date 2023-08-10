@@ -718,8 +718,7 @@ window.addEventListener("DOMContentLoaded", (event)=>{
     });
     requestAnimationFrame(raf);
     // Initialize
-    //checkIfLoaded(document.querySelector(".frame-header"), initPage);
-    initPage();
+    checkIfLoaded(document.querySelector(".frame-header"), initPage);
     // Initialize gsap functionality
     function initPage() {
         body.classList.remove("loading");
