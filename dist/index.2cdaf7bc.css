@@ -1,0 +1,89 @@
+.word {
+  clip-path: inset(0);
+  display: inline-block;
+  position: relative;
+}
+
+.word .top {
+  clip-path: inset(0 0 50%);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.word .bottom {
+  clip-path: inset(50% 0 0);
+  display: inline-block;
+  position: relative;
+}
+
+[glitch-wrapper] {
+  pointer-events: none;
+}
+
+.slice {
+  position: absolute;
+  inset: 0;
+}
+
+.slice.top {
+  clip-path: inset(0 0 49%);
+}
+
+.slice.bottom {
+  clip-path: inset(49% 0 0);
+}
+
+.slice.top-third {
+  clip-path: inset(0 0 66%);
+}
+
+.slice.middle-third {
+  clip-path: inset(33% 0);
+}
+
+.slice.bottom-third {
+  clip-path: inset(66% 0 0);
+}
+
+.slice.top-left-third {
+  clip-path: inset(0 66% 49% 0);
+}
+
+.slice.bottom-left-third {
+  clip-path: inset(49% 66% 0 0);
+}
+
+.slice.top-middle-third {
+  clip-path: inset(0 33% 49%);
+}
+
+.slice.bottom-middle-third {
+  clip-path: inset(49% 33% 0);
+}
+
+.slice.top-right-third {
+  clip-path: inset(0 0 49% 66%);
+}
+
+.slice.bottom-right-third {
+  clip-path: inset(49% 0 0 66%);
+}
+
+.slice.top-left {
+  clip-path: inset(0 49% 49% 0);
+}
+
+.slice.bottom-left {
+  clip-path: inset(49% 49% 0 0);
+}
+
+.slice.top-right {
+  clip-path: inset(0 0 49% 49%);
+}
+
+.slice.bottom-right {
+  clip-path: inset(49% 0 0 49%);
+}
+
+/*# sourceMappingURL=index.2cdaf7bc.css.map */
