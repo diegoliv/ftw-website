@@ -718,7 +718,8 @@ window.addEventListener("DOMContentLoaded", (event)=>{
     });
     requestAnimationFrame(raf);
     // Initialize
-    checkIfLoaded(document.querySelector(".frame-header"), initPage);
+    //checkIfLoaded(document.querySelector(".frame-header"), initPage);
+    initPage();
     // Initialize gsap functionality
     function initPage() {
         body.classList.remove("loading");
@@ -901,6 +902,163 @@ window.addEventListener("DOMContentLoaded", (event)=>{
                 text: ""
             });
             createScrollTrigger(trigger, tl, true, start, end, delay, false, once, "scramble");
+        });
+        // glitch effect for footer links ====================================== //
+        const links = (0, _gsap.gsap).utils.toArray("[glitch-link]");
+        console.log(links);
+        links.forEach((link)=>{
+            console.log("link", link);
+            const el = link.querySelector("[glitch-el]");
+            const altEl = link.querySelector("[glitch-el-alt]");
+            const inner = link.querySelector("[glitch-wrapper]");
+            const elInner = `
+      <div class="slice top-left"></div>
+      <div class="slice bottom-left"></div>
+      <div class="slice top-right"></div>
+      <div class="slice bottom-right"></div>`;
+            inner.innerHTML = elInner;
+            const slices = inner.querySelectorAll("div");
+            slices.forEach((slice)=>{
+                slice.appendChild(el.cloneNode(true));
+                if (altEl) slice.appendChild(altEl.cloneNode(true));
+            });
+            if (el.hasAttribute("glitch-sizer")) {
+                el.classList.add("invisible");
+                inner.appendChild(el);
+            }
+            const els = link.querySelectorAll("[glitch-el]");
+            const altEls = altEl ? link.querySelectorAll("[glitch-el-alt]") : null;
+            // set button timeline
+            const tl = (0, _gsap.gsap).timeline({
+                paused: true
+            });
+            if (altEl) (0, _gsap.gsap).set(altEls, {
+                opacity: 0
+            });
+            tl.to(slices, 0.01, {
+                opacity: 1,
+                stagger: {
+                    amount: 0.2
+                }
+            }).to(slices, 0.01, {
+                y: "random(-50%, 50%)",
+                stagger: {
+                    amount: 0.02
+                }
+            }).to(slices, 0.02, {
+                y: 0,
+                stagger: {
+                    amount: 0.02
+                }
+            }).to(slices, 0.02, {
+                opacity: 0,
+                stagger: {
+                    amount: 0.02,
+                    from: "random"
+                }
+            }).to(slices, 0.01, {
+                opacity: 1,
+                stagger: {
+                    amount: 0.02,
+                    from: "random"
+                }
+            }).to(slices, 0.02, {
+                x: "random(-50%, 50%)",
+                stagger: {
+                    amount: 0.01
+                }
+            }).to(slices, 0.01, {
+                x: "random(-50%, 50%)",
+                stagger: {
+                    amount: 0.02
+                }
+            }).to(slices, 0.02, {
+                opacity: 0,
+                stagger: {
+                    amount: 0.02,
+                    from: "random"
+                }
+            });
+            if (altEl) tl.to(els, {
+                opacity: 0,
+                duration: 0
+            }).to(altEls, {
+                opacity: 1,
+                duration: 0
+            });
+            tl.to(slices, 0.01, {
+                opacity: 1,
+                stagger: {
+                    amount: 0.02,
+                    from: "random"
+                }
+            }).to(slices, 0.02, {
+                x: 0,
+                stagger: {
+                    amount: 0.02
+                }
+            }).to(slices, 0.01, {
+                x: 0,
+                stagger: {
+                    amount: 0.02
+                }
+            });
+            link.addEventListener("mouseover", ()=>{
+                console.log("play");
+                tl.play();
+            });
+            link.addEventListener("mouseout", ()=>{
+                if (altEl) tl.reverse();
+                else tl.pause(0);
+            });
+        });
+        // Mobile menu interaction ========================================== //
+        const menuTrigger = document.querySelector(".menu-trigger");
+        // Store link labels
+        document.querySelectorAll(".mobile-nav-link-label").forEach((item)=>{
+            item.dataset.label = item.textContent;
+        });
+        const menuTl = (0, _gsap.gsap).timeline({
+            paused: true
+        });
+        menuTl.to(".mobile-nav-link-label", {
+            text: (index, target)=>{
+                return target.dataset.label;
+            },
+            duration: 0.5,
+            stagger: 0.2
+        }).to(".nav-link-divider", {
+            scaleX: 1,
+            duration: 0.3,
+            stagger: 0.2
+        }, 0).to(".nav-link-gradient", {
+            opacity: 0.5,
+            duration: 0.3,
+            stagger: 0.2
+        }, 0);
+        (0, _gsap.gsap).set(".mobile-nav-link-label", {
+            text: ""
+        });
+        (0, _gsap.gsap).set(".nav-link-divider", {
+            scaleX: 0
+        });
+        (0, _gsap.gsap).set(".nav-link-gradient", {
+            opacity: 0
+        });
+        menuTrigger.addEventListener("click", (e)=>{
+            if (menuTrigger.classList.contains("active")) menuTl.reverse();
+            else menuTl.play();
+            menuTrigger.classList.toggle("active");
+        });
+        // Close mobile menu if link is clicked ========================= //
+        document.querySelectorAll(".nav-link.mobile").forEach((link)=>{
+            link.addEventListener("click", ()=>{
+                menuTrigger.click();
+            });
+        });
+        // Form submit ================================================== //
+        document.querySelector(".newsletter-submit").addEventListener("click", ()=>{
+            document.querySelector(".form-submit-hidden").click();
         });
         // Factions Slider ============================================== //
         const heroes = (0, _gsap.gsap).utils.toArray(".factions-slider-hero");
@@ -1281,144 +1439,6 @@ window.addEventListener("DOMContentLoaded", (event)=>{
             onEnter: ()=>{
                 goToWeapon(0);
             }
-        });
-        // glitch effect for footer linkst
-        const links = (0, _gsap.gsap).utils.toArray("[glitch-link]");
-        links.forEach((link)=>{
-            const el = link.querySelector("[glitch-el]");
-            const inner = link.querySelector("[glitch-wrapper]");
-            const elInner = `
-      <div class="slice top-left"></div>
-      <div class="slice bottom-left"></div>
-      <div class="slice top-right"></div>
-      <div class="slice bottom-right"></div>`;
-            inner.innerHTML = elInner;
-            const slices = inner.querySelectorAll("div");
-            slices.forEach((slice)=>{
-                slice.appendChild(el.cloneNode(true));
-            });
-            if (el.hasAttribute("glitch-sizer")) {
-                el.classList.add("invisible");
-                inner.appendChild(el);
-            }
-            // set button timeline
-            const tl = (0, _gsap.gsap).timeline({
-                paused: true
-            });
-            tl.to(slices, 0.01, {
-                opacity: 1,
-                stagger: {
-                    amount: 0.2
-                }
-            }).to(slices, 0.01, {
-                y: "random(-50%, 50%)",
-                stagger: {
-                    amount: 0.02
-                }
-            }).to(slices, 0.02, {
-                y: 0,
-                stagger: {
-                    amount: 0.02
-                }
-            }).to(slices, 0.02, {
-                opacity: 0,
-                stagger: {
-                    amount: 0.02,
-                    from: "random"
-                }
-            }).to(slices, 0.01, {
-                opacity: 1,
-                stagger: {
-                    amount: 0.02,
-                    from: "random"
-                }
-            }).to(slices, 0.02, {
-                x: "random(-50%, 50%)",
-                stagger: {
-                    amount: 0.01
-                }
-            }).to(slices, 0.01, {
-                x: "random(-50%, 50%)",
-                stagger: {
-                    amount: 0.02
-                }
-            }).to(slices, 0.02, {
-                opacity: 0,
-                stagger: {
-                    amount: 0.02,
-                    from: "random"
-                }
-            }).to(slices, 0.01, {
-                opacity: 1,
-                stagger: {
-                    amount: 0.02,
-                    from: "random"
-                }
-            }).to(slices, 0.02, {
-                x: 0,
-                stagger: {
-                    amount: 0.02
-                }
-            }).to(slices, 0.01, {
-                x: 0,
-                stagger: {
-                    amount: 0.02
-                }
-            });
-            link.addEventListener("mouseover", ()=>{
-                tl.play();
-            });
-            link.addEventListener("mouseout", ()=>{
-                tl.pause(0);
-            });
-        });
-        // Mobile menu interaction
-        const menuTrigger = document.querySelector(".menu-trigger");
-        // Store link labels
-        document.querySelectorAll(".mobile-nav-link-label").forEach((item)=>{
-            item.dataset.label = item.textContent;
-        });
-        const menuTl = (0, _gsap.gsap).timeline({
-            paused: true
-        });
-        menuTl.to(".mobile-nav-link-label", {
-            text: (index, target)=>{
-                return target.dataset.label;
-            },
-            duration: 0.5,
-            stagger: 0.2
-        }).to(".nav-link-divider", {
-            scaleX: 1,
-            duration: 0.3,
-            stagger: 0.2
-        }, 0).to(".nav-link-gradient", {
-            opacity: 0.5,
-            duration: 0.3,
-            stagger: 0.2
-        }, 0);
-        (0, _gsap.gsap).set(".mobile-nav-link-label", {
-            text: ""
-        });
-        (0, _gsap.gsap).set(".nav-link-divider", {
-            scaleX: 0
-        });
-        (0, _gsap.gsap).set(".nav-link-gradient", {
-            opacity: 0
-        });
-        menuTrigger.addEventListener("click", (e)=>{
-            if (menuTrigger.classList.contains("active")) menuTl.reverse();
-            else menuTl.play();
-            menuTrigger.classList.toggle("active");
-        });
-        // Close mobile menu if link is clicked
-        document.querySelectorAll(".nav-link.mobile").forEach((link)=>{
-            link.addEventListener("click", ()=>{
-                menuTrigger.click();
-            });
-        });
-        // Form submit
-        document.querySelector(".newsletter-submit").addEventListener("click", ()=>{
-            document.querySelector(".form-submit-hidden").click();
         });
     }
 });

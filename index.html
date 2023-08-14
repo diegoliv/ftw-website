@@ -23,6 +23,20 @@
       "
     ></div>
     <h3 split-text class="hover-glitch">Testing another split text section</h3>
+    <a glitch-link href="http://discord.gg/enterthejungle" target="_blank" style="display: block; width: 40px; height: 40px; position: relative">
+      <div glitch-wrapper="" class="footer-social-link-inner pointer-events-none">
+        <div glitch-el>
+          <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+            <path d="M27.09 6.022a26.388 26.388 0 0 0-6.514-2.02.099.099 0 0 0-.105.05c-.281.5-.593 1.152-.81 1.665a24.359 24.359 0 0 0-7.317 0 16.853 16.853 0 0 0-.823-1.666.103.103 0 0 0-.105-.05 26.315 26.315 0 0 0-6.513 2.02.093.093 0 0 0-.043.038C.71 12.257-.425 18.302.132 24.273a.11.11 0 0 0 .042.074 26.534 26.534 0 0 0 7.99 4.04.105.105 0 0 0 .113-.037 18.986 18.986 0 0 0 1.634-2.66.101.101 0 0 0-.055-.14c-.87-.33-1.7-.733-2.496-1.19a.103.103 0 0 1-.01-.17c.167-.126.335-.257.495-.389a.099.099 0 0 1 .104-.014c5.237 2.391 10.906 2.391 16.081 0a.1.1 0 0 1 .105.013c.16.132.328.264.497.39a.102.102 0 0 1-.009.17 16.4 16.4 0 0 1-2.497 1.189.102.102 0 0 0-.054.142c.48.93 1.029 1.817 1.633 2.657a.1.1 0 0 0 .112.039 26.453 26.453 0 0 0 8.003-4.04.102.102 0 0 0 .042-.073c.667-6.903-1.117-12.899-4.731-18.214a.081.081 0 0 0-.042-.038ZM10.692 20.637c-1.576 0-2.876-1.448-2.876-3.225 0-1.778 1.274-3.225 2.877-3.225 1.614 0 2.9 1.46 2.875 3.225 0 1.777-1.274 3.225-2.876 3.225Zm10.633 0c-1.576 0-2.875-1.448-2.875-3.225 0-1.778 1.273-3.225 2.875-3.225 1.615 0 2.901 1.46 2.876 3.225 0 1.777-1.261 3.225-2.876 3.225Z" fill="currentColor"></path>
+          </svg>
+        </div>
+        <div glitch-el-alt style="position: absolute; top: 0; left: 0; width: 100%; height: 100%">
+          <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" fill="currentColor"></path>
+          </svg>
+        </div>
+      </div>
+    </a>
     <div style="height: 300vh;" pin-wrapper>
       <div pin-el>
         <div style="height: 100vh; display: flex;">
@@ -134,6 +148,38 @@
         position: relative;
         clip-path: inset(50% 0 0 0);
       }
+      [glitch-wrapper] {
+        pointer-events: none;
+      }
+
+      /* Factions */
+      .slice {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+      
+      .slice.top { clip-path: inset(0 0 49% 0) }
+      .slice.bottom { clip-path: inset(49% 0 0 0) }
+      .slice.top-third { clip-path: inset(0 0 66% 0) }
+      .slice.middle-third { clip-path: inset(33% 0 33% 0) }
+      .slice.bottom-third { clip-path: inset(66% 0 0 0) }
+
+      /* Weapons */ 
+      .slice.top-left-third { clip-path: inset(0 66% 49% 0) }
+      .slice.bottom-left-third { clip-path: inset(49% 66% 0 0) }
+      .slice.top-middle-third { clip-path: inset(0 33% 49% 33%) }
+      .slice.bottom-middle-third { clip-path: inset(49% 33% 0 33%) }
+      .slice.top-right-third { clip-path: inset(0 0 49% 66%) }
+      .slice.bottom-right-third { clip-path: inset(49% 0 0 66%) }
+      
+      /* Buttons */
+      .slice.top-left { clip-path: inset(0 49% 49% 0) }
+      .slice.bottom-left { clip-path: inset(49% 49% 0 0) }
+      .slice.top-right { clip-path: inset(0 0 49% 49%) }
+      .slice.bottom-right { clip-path: inset(49% 0 0 49%) }      
     </style>
   </body>
 </html>
