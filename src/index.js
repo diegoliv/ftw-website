@@ -33,7 +33,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
   // Check if playing audio is allowed
   function maybePlay(audio, callback) {
-    console.log("maybePlay", audioState.state, audioEnabled);
+    // console.log("maybePlay", audioState.state, audioEnabled);
     //if (audioState.state === "running" && audioEnabled) {
     if (audioEnabled) {
       audio.play();
@@ -116,8 +116,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
   requestAnimationFrame(raf);
 
   // Initialize
-  //checkIfLoaded(document.querySelector(".frame-header"), initPage);
-  initPage();
+  if (document.querySelector(".frame-wrapper")) {
+    checkIfLoaded(document.querySelector(".frame-header"), initPage);
+  } else {
+    // If we're testing on codesandbox, just initialize everything, no need to check if it's loaded.
+    initPage();
+  }
 
   // Initialize gsap functionality
   function initPage() {
