@@ -812,7 +812,7 @@ window.addEventListener("DOMContentLoaded", (event)=>{
     }
 });
 
-},{"split-type":"fvGAG","@studio-freight/lenis":"ggVJc","gsap":"fPSuC","gsap/ScrollTrigger":"7wnFk","gsap/TextPlugin":"9TeAU","./ScrambleTextPlugin.min.js":"565L9","./utils.js":"en4he","./factionsSlider.js":"akLbX","./weaponsSlider.js":"1wrY7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./glitchHeadlines.js":"8NrJU","./scrambleParagraphs.js":"auMN9","./glitchLinks.js":"3aMOA"}],"fvGAG":[function(require,module,exports) {
+},{"split-type":"fvGAG","@studio-freight/lenis":"ggVJc","gsap":"fPSuC","gsap/ScrollTrigger":"7wnFk","gsap/TextPlugin":"9TeAU","./ScrambleTextPlugin.min.js":"565L9","./utils.js":"en4he","./factionsSlider.js":"akLbX","./weaponsSlider.js":"1wrY7","./glitchHeadlines.js":"8NrJU","./scrambleParagraphs.js":"auMN9","./glitchLinks.js":"3aMOA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fvGAG":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>SplitType);
