@@ -8793,7 +8793,7 @@ var _gsap = require("gsap");
 var _scrollTrigger = require("gsap/ScrollTrigger");
 var _textPlugin = require("gsap/TextPlugin");
 (0, _gsap.gsap).registerPlugin((0, _scrollTrigger.ScrollTrigger), (0, _textPlugin.TextPlugin));
-function initWeaposSlider() {
+function initWeaposSlider(transitionCallback) {
     // Weapons Slider ============================================== //
     const weaponsList = (0, _gsap.gsap).utils.toArray(".weapons-slide");
     let weapons = [];

@@ -4,7 +4,7 @@ import { TextPlugin } from "gsap/TextPlugin";
 
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
-export default function initWeaposSlider() {
+export default function initWeaposSlider(transitionCallback) {
   // Weapons Slider ============================================== //
   const weaponsList = gsap.utils.toArray(".weapons-slide");
   let weapons = [];
